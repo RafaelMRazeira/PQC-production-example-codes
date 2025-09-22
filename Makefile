@@ -11,7 +11,7 @@ build:
 	docker build -t pqc-server .
 
 build_client:
-	docker build -t pqc-client .
+	docker build -t pqc-client -f Dockerfile-client .
 
 run:
 	python main.py
@@ -21,3 +21,6 @@ c_run:
 
 c_run_client:
 	docker run --network=host --rm -it -v .:/shared -p 5001:5001 pqc-client /bin/bash 
+
+run_client:
+	docker run --network=host --rm pqc-client

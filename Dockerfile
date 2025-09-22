@@ -29,7 +29,6 @@ COPY pqc pqc
 COPY main.py main.py
 COPY requirements.txt .
 COPY setup.py .
-COPY client.py .
 
 RUN pip install --no-cache-dir -e .
 
