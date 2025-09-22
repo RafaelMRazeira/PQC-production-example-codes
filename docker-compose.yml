@@ -1,0 +1,32 @@
+services:
+
+  redis:
+    env_file: .env
+    image: redis:8.0.1
+    container_name: secure-redis
+    ports:
+      - "6379:6379"
+    command: >
+      redis-server --requirepass ${REDIS_PASSWORD}
+    volumes:
+      - /home/redis-data:/data
+  pqc-server:
+    env_file: .env
+    image: pqc-server
+    build: .
+    depends_on:
+      - redis
+    ports:
+      - "5000:5000"
+    environment:
+      REDIS_HOST: redis
+      REDIS_PORT: 6379
+    entrypoint:
+      python main.py
+
+networks:
+  pqs:
+    external: true
+
+volumes:
+  redis_data:
